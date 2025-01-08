@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mala Mapping Papua Island</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 100vh; /* Full height of the viewport */
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Mala Mapping Papua Island</h1>
+        <button onclick="showStreetMap()">Street Map</button>
+        <button onclick="showMiningMap()">Mining Map</button>
+        <button onclick="showIndustryMap()">Industry Map</button>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([-4.5, 135.5], 6); // Centered on Papua Island
+
+        // Add OpenStreetMap tile layer
+        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Placeholder for mining and industry layers
+        let miningLayer, industryLayer;
+
+        // Function to show street map
+        function showStreetMap() {
+            if (miningLayer) map.removeLayer(miningLayer);
+            if (industryLayer) map.removeLayer(industryLayer);
+            map.addLayer(osmLayer);
+        }
+
+        // Function to show mining map
+        function showMiningMap() {
+            if (osmLayer) map.removeLayer(osmLayer);
+            if (!miningLayer) {
+                miningLayer = L.tileLayer('https://example.com/mining/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: 'Mining data © Your Source'
+                });
+            }
+            map.addLayer(miningLayer);
+        }
+
+        // Function to show industry map
+        function showIndustryMap() {
+            if (osmLayer) map.removeLayer(osmLayer);
+            if (!industryLayer) {
+                industryLayer = L.tileLayer('https://example.com/industry/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: 'Industry data © Your Source'
+                });
+            }
+            map.addLayer(industryLayer);
+        }
+    </script>
+</body>
+</html>
