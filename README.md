@@ -1,0 +1,2 @@
+# Mala-OpenStreetMap
+belajarr gusyy
